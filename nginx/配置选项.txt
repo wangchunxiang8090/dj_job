@@ -1,0 +1,5 @@
+[root@iZ23s9ador9Z ~]# /usr/local/nginx/sbin/nginx -V
+nginx version: nginx/1.4.3
+built by gcc 4.4.7 20120313 (Red Hat 4.4.7-3) (GCC) 
+TLS SNI support enabled
+configure arguments: --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_sub_module --with-md5=/usr/lib --with-sha1=/usr/lib --with-http_gzip_static_module --with-http_flv_module --with-cc=gcc --with-cc-opt=' -O3' --add-module=../nginx-accesskey-2.0.3 --with-http_mp4_module

@@ -1,0 +1,32 @@
+yum install ncurses ncurses-devel  bison byacc openssl-devel gcc gcc-c++
+useradd -s /sbin/nologin mysql
+
+tar zxf cmake-3.0.2.tar.gz -C /usr/src/
+cd /usr/src/cmake-3.0.2
+./configure --prefix=/usr/local/cmake
+gmake
+gmake install
+
+
+tar zxf mysql-5.5.41.tar.gz -C /usr/src/
+cd /usr/src/mysql-5.5.41/
+mkdir /var/run/mysql
+chmod 775 /var/run/mysql
+chown mysql:mysql /var/run/mysql
+/usr/local/cmake/bin/cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DENABLED_LOCAL_INFILE=1 -DEXTRA_CHARSETS=all -DMYSQL_UNIX_ADDR=/var/run/mysql/mysqld.sock -DMYSQL_TCP_PORT=3306 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_MYISAM_STORAGE_ENGINE=1 -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_SSL=bundled
+make -j 4	#CPU核心数
+make install
+mkdir /data0/mysqldata
+chown -R mysql.mysql /data0/mysqldata
+/usr/local/mysql/scripts/mysql_install_db --user=mysql --basedir=/usr/local/mysql --datadir=/data0/mysqldata &
+chown -R mysql.mysql /data0/mysqldata
+chmod  -R o= /data0/mysqldata
+cd /usr/local/mysql/support-files/
+cp mysql.server /etc/init.d/mysqld
+chmod 700 /etc/init.d/mysqld
+chkconfig --add mysqld
+chkconfig mysqld on
+
+
+
+bash 和 ssl升级
